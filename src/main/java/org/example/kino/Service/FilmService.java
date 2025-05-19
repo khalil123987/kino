@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FilmService {
@@ -18,10 +19,10 @@ public class FilmService {
     }
 
     public List<Film> hentAllFilms() {
-        return filmRepository.findAll();
+        return (List<Film>) filmRepository.findAll();
     }
 
-    public Film hentFilm(int id) {
+    public Optional<Film> hentFilm(int id) {
         return filmRepository.findById(id);
     }
 
@@ -31,10 +32,20 @@ public class FilmService {
 
     public boolean oppdaterFilm(Film film) {
         filmRepository.update(film);
+        return false;
     }
 
     public boolean deleteFilm(int id) {
         return filmRepository.delete(id);
+    }
+
+    public List<Film> hentAlleFilmer() {
+    }
+
+    public Film hentFilmVedId(int id) {
+    }
+
+    public boolean slettFilm(int id) {
     }
 }
 
