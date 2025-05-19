@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "tblPlassbillett")
-@IdClass(Plassbillett.sammensattPlassBillettId.class)
+@IdClass(Plassbillett.SammensattPlassBillettId.class)
 public class Plassbillett {
 
     @Id
@@ -69,15 +69,15 @@ public class Plassbillett {
     }
 
     // ID Class
-    public static class sammensattPlassBillettId implements Serializable {
+    public static class SammensattPlassBillettId implements Serializable {
         private String billettkode;
         private int radNr;
         private int seteNr;
         private int kinosalNr;
 
-        public sammensattPlassBillettId() {}
+        public SammensattPlassBillettId() {}
 
-        public sammensattPlassBillettId(String billettkode, int radNr, int seteNr, int kinosalNr) {
+        public SammensattPlassBillettId(String billettkode, int radNr, int seteNr, int kinosalNr) {
             this.billettkode = billettkode;
             this.radNr = radNr;
             this.seteNr = seteNr;
@@ -88,7 +88,7 @@ public class Plassbillett {
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
-            if (!(o instanceof sammensattPlassBillettId that)) return false;
+            if (!(o instanceof SammensattPlassBillettId that)) return false;
             return radNr == that.radNr &&
                     seteNr == that.seteNr &&
                     kinosalNr == that.kinosalNr &&
