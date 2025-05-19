@@ -15,4 +15,11 @@ public interface PlassRepository {
     List<Plass> findByPlassNameStartsWith(String plassName);
     List<Plass> findByPlassNameEndsWith(String plassName);
     List<Plass> findByPlassNameContains(String plassName);
+    List<Plass> findByPlassKinonrContains(String plassKinonr);
+    List<Plass> findByPlassKinonrLike(String plassKinonr);
+
+    boolean save(Plass plass);
+    boolean delete(Plass plass);
+    boolean delete(int radnr, int setenr, int kinosalnr);
+
 }

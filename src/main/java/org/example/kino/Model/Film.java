@@ -1,8 +1,6 @@
 package org.example.kino.Model;
 
-import jakarta.persistence.Entity;
 
-@Entity
 public class Film {
     private int filmnr;
     private String filmnavn;
