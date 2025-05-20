@@ -1,7 +1,6 @@
 package org.example.kino.Controller;
 
 import org.example.kino.Model.Film;
-import org.example.kino.Repository.FilmRepository;
 import org.example.kino.Service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +26,8 @@ public class FilmController {
 
     @GetMapping("/{id}")
     public Film hentEn(@PathVariable int id) {
-        return filmService.hentFilmVedId(id);
+        Optional<Film> film = filmService.hentFilmVedId(id);
+        return film.orElse(null);
     }
 
     @PostMapping

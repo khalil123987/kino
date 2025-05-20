@@ -18,11 +18,11 @@ public class FilmService {
         this.filmRepository = filmRepository;
     }
 
-    public List<Film> hentAllFilms() {
+    public List<Film> hentAlleFilmer() {
         return (List<Film>) filmRepository.findAll();
     }
 
-    public Optional<Film> hentFilm(int id) {
+    public Optional<Film> hentFilmVedId(int id) {
         return filmRepository.findById(id);
     }
 
@@ -31,24 +31,18 @@ public class FilmService {
     }
 
     public boolean oppdaterFilm(Film film) {
-        filmRepository.update(film);
+        if (filmRepository.existsById(film.getFilmnr())) {
+            filmRepository.save(film);
+            return true;
+        }
         return false;
-    }
-
-    public boolean deleteFilm(int id) {
-        return filmRepository.delete(id);
-    }
-
-    public List<Film> hentAlleFilmer() {
-        return List.of();
-    }
-
-    public Film hentFilmVedId(int id) {
-        return null;
     }
 
     public boolean slettFilm(int id) {
+        if (filmRepository.existsById(id)) {
+            filmRepository.deleteById(id);
+            return true;
+        }
         return false;
     }
 }
-
