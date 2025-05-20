@@ -9,7 +9,7 @@ public class Visning {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "v_id")
+    @Column(name = "v_visningnr")
     private int id;
 
     @Column(name = "v_flmnr", nullable = false)
@@ -18,15 +18,19 @@ public class Visning {
     @Column(name = "v_kinosalnr", nullable = false)
     private int kinosalNr;
 
-    @Column(name = "v_tid", nullable = false)
+    @Column(name = "v_starttid", nullable = false)
     private LocalDateTime tidspunkt;
+
+    @Column(name = "v_pris", nullable = false)
+    private double pris;
 
     public Visning() {}
 
-    public Visning(int filmNr, int kinosalNr, LocalDateTime tidspunkt) {
+    public Visning(int filmNr, int kinosalNr, LocalDateTime tidspunkt, double pris) {
         this.filmNr = filmNr;
         this.kinosalNr = kinosalNr;
         this.tidspunkt = tidspunkt;
+        this.pris = pris;
     }
 
     // Getters and setters
@@ -57,5 +61,13 @@ public class Visning {
 
     public void setTidspunkt(LocalDateTime tidspunkt) {
         this.tidspunkt = tidspunkt;
+    }
+
+    public double getPris() {
+        return pris;
+    }
+
+    public void setPris(double pris) {
+        this.pris = pris;
     }
 }

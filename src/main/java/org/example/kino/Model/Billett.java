@@ -17,7 +17,7 @@ public class Billett {
     @Column(name ="b_visningnr")
     private Integer visningNr;
 
-    @Column(name = "b_erBetalt")
+    @Column(name = "b_erbetalt")
     private boolean erBetalt;
     
 
