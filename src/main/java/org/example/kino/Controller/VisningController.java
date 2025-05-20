@@ -21,7 +21,7 @@ public class VisningController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Visning> getVisningById(@PathVariable Long id) {
+    public Optional<Visning> getVisningById(@PathVariable Integer id) {
         return visningRepository.findById(id);
     }
 
@@ -31,7 +31,7 @@ public class VisningController {
     }
 
     @PutMapping("/{id}")
-    public Visning updateVisning(@PathVariable Long id, @RequestBody Visning updated) {
+    public Visning updateVisning(@PathVariable Integer id, @RequestBody Visning updated) {
         return visningRepository.findById(id)
                 .map(visning -> {
                     visning.setFilmNr(updated.getFilmNr());
@@ -43,7 +43,7 @@ public class VisningController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteVisning(@PathVariable Long id) {
+    public void deleteVisning(@PathVariable Integer id) {
         visningRepository.deleteById(id);
     }
 }
