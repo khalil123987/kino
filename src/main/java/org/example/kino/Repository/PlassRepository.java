@@ -18,8 +18,12 @@ public interface PlassRepository {
     List<Plass> findByPlassKinonrContains(String plassKinonr);
     List<Plass> findByPlassKinonrLike(String plassKinonr);
 
+
     boolean save(Plass plass);
     boolean delete(Plass plass);
     boolean delete(int radnr, int setenr, int kinosalnr);
+    boolean update(Plass plass);
 
+    Plass findById(int radnr, int setenr, int kinosalnr);
+    Plass findByPlassKinonr(String plassKinonr);
 }

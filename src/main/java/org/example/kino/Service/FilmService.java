@@ -40,12 +40,15 @@ public class FilmService {
     }
 
     public List<Film> hentAlleFilmer() {
+        return List.of();
     }
 
     public Film hentFilmVedId(int id) {
+        return null;
     }
 
     public boolean slettFilm(int id) {
+        return false;
     }
 }
 

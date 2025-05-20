@@ -22,6 +22,7 @@ public class PlassService {
     }
 
     public List<Plass>hentAllePlasser() {
+        int kinosalnr = 0;
         return plassRepository.findByPlassId(kinosalnr);
     }
 
