@@ -19,10 +19,7 @@ public class Billett {
 
     @Column(name = "b_erBetalt")
     private boolean erBetalt;
-
-    @ManyToOne
-    @JoinColumn(name = "b_visningnr", referencedColumnName ="v_visningnr")
-    private Visning visning;
+    
 
     public Billett() {
     }
