@@ -3,15 +3,15 @@ package org.example.kino.Model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tblFilm")
+@Table(name = "tblfilm")
 public class Film {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "f_id")
+    @Column(name = "f_filmnr")
     private int filmnr;
 
-    @Column(name = "f_navn")
+    @Column(name = "f_filmnavn")
     private String filmnavn;
 
     public Film() {}
