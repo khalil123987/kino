@@ -22,6 +22,6 @@ public class Login {
     @Column(name = "l_pinkode", precision = 4, scale = 0)
     private Integer pinkode;
 
-    @Column(name = "l_erPlanlegger")
+    @Column(name = "l_erplanlegger")
     private Boolean erPlanlegger;
 }
