@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tblPlass")
+@Table(name = "tblplass")
 @IdClass(Plass.PlassId.class)
 public class Plass {
 

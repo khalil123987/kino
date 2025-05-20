@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "tblPlassbillett")
+@Table(name = "tblplassbillett")
 @IdClass(Plassbillett.SammensattPlassBillettId.class)
 public class Plassbillett {
 
