@@ -1,7 +1,12 @@
 package org.example.kino.Model;
 
 import jakarta.persistence.*;
-
+// Testet og godkjent av Zaurbek
+/**
+ * Dette er en entitet Billett som er utgangspunkt i både repository, service og
+ * controller. Dette er det vi bruker i spring boot og disse bruker vi også for prosjektet. Prosjektet bruker
+ * jpa i spring boot så vi får kommunisert med databasen.
+ */
 @Entity
 @Table(name = "tblbillett")
 public class Billett {

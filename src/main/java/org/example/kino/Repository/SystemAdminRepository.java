@@ -9,6 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+/**
+ * Repo for systemdmin - her kreves flere queries
+ * Noen queries lagde vi selv men måtte oppdatere med KI for at vi hadde noe feil struktur eller at
+ * postgres/intellij ikke godtar på en spesifik måte
+ * Ellers var tankegangen vår
+ */
 public interface SystemAdminRepository extends JpaRepository<Login, String> {
 
     Optional<Login> findByBrukernavnAndPinkode(String brukernavn, Integer pinkode);
@@ -55,3 +61,8 @@ public interface SystemAdminRepository extends JpaRepository<Login, String> {
     """, nativeQuery = true)
     int slettVisningerEldreEnnXTimer(int timer);
 }
+
+/**
+ * Trengte spørringer og data for å både innhente data om ubetalte/betalte billetter
+ * fra billet men også visning (tiden)
+ */

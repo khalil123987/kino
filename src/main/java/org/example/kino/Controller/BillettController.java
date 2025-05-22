@@ -1,3 +1,11 @@
+// testet i postman for å sjekka om alt funker både i IDE av Zaurbek
+
+/**
+ * Controller er utløseren for funksjonene og spørringer for at når
+ * brukeren velger funksjon så gir det et resultat
+ * controller sørger for at henting, lagring, endring, putting fungerer.
+ */
+
 package org.example.kino.Controller;
 
 import org.example.kino.Model.Billett;

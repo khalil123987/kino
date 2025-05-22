@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PlassBillettRepository extends JpaRepository<Plassbillett, SammensattPlassBillettId> {
-    // Ekstra spørringer kan defineres her ved behov
+
     List<Plassbillett> findByBillettkode(String billettkode);
 }
 

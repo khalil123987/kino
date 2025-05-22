@@ -4,9 +4,14 @@ import org.example.kino.Model.Visning;
 import org.example.kino.Repository.VisningRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
+
+/**
+ * Testet med postman av Sarmad
+ * Disse fungerer med annen kode som relateres
+ *
+ */
 
 @RestController
 @RequestMapping("/api/visninger")
@@ -29,6 +34,9 @@ public class VisningController {
     public Visning createVisning(@RequestBody Visning visning) {
         return visningRepository.save(visning);
     }
+                /**
+              Her endres ved at variabler defineres mot at alle betingelser er oppfylt
+                 */
 
     @PutMapping("/{id}")
     public Visning updateVisning(@PathVariable Integer id, @RequestBody Visning updated) {

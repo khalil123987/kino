@@ -5,8 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
+/**
+ * Enkel repo med ikke mye som trengtes akkurat her
+ */
+
 public interface VisningRepository extends JpaRepository<Visning, Integer> {
     List<Visning> findByFilmNr(int filmNr);
-    // Ekstra spørringer kan defineres her ved behov
+
 }
 

@@ -5,6 +5,10 @@ import org.example.kino.Repository.SystemAdminRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+/**
+ * Hoved menyen vår hvor vi har laget tilgang til de
+ * 4 delene som oppgaven ble delt inn. Planlegger, kunde, kinobetjent, systemadmin.
+ */
 import java.util.Scanner;
 
 @Component
@@ -31,7 +35,7 @@ public class Hovedmeny implements CommandLineRunner {
     @Override
     public void run(String... args) {
         Scanner scanner = new Scanner(System.in);
-
+        // Dette er selve menyen
         while (true) {
             System.out.println("\n--- HOVEDMENY ---");
             System.out.println("1: Logg inn som planlegger");
@@ -42,7 +46,7 @@ public class Hovedmeny implements CommandLineRunner {
 
             System.out.print("Velg et alternativ: ");
             String valg = scanner.nextLine();
-
+            // brukeren sine prints etter en handling
             switch (valg) {
                 case "1":
                     System.out.println("Du valgte planlegger.");
@@ -57,7 +61,7 @@ public class Hovedmeny implements CommandLineRunner {
 
                     if (innlogget) {
                         System.out.println("Innlogging vellykket.");
-                        planlegger.meny(); 
+                        planlegger.meny();
                     } else {
                         System.out.println("Feil brukernavn eller pinkode.");
                     }
@@ -73,7 +77,7 @@ public class Hovedmeny implements CommandLineRunner {
                     break;
                 case "4":
                     System.out.println("Du valgte systemadministrasjon.");
-                    admin.visMeny(); // <-- Send kontrollen videre til SystemAdmin
+                    admin.visMeny();
                     break;
                 case "0":
                     System.out.println("Avslutter...");

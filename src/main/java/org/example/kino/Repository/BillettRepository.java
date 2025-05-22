@@ -1,3 +1,9 @@
+//testet av zaurbek og godkjent at funker
+
+/**
+ * Her sørger repository at henting og lagring av entitet / verdier funker
+ * i programmet.
+ */
 package org.example.kino.Repository;
 
 import org.example.kino.Model.Billett;
@@ -10,17 +16,14 @@ import java.util.List;
 
 public interface BillettRepository extends JpaRepository<Billett, String> {
 
-    // === Teller billetter ===
     long countByErbetaltFalse();
     long countByErbetaltTrue();
     long countByErbetalt(boolean erBetalt);
     long countByVisningsnr(int visningsnr);
 
-    // === Hent billetter ===
     List<Billett> findByVisningsnr(int visningsnr);
     List<Billett> findByVisningsnrAndErbetaltFalse(int visningsnr);
 
-    // === Slett billetter for gamle visninger ===
     @Modifying
     @Transactional
     @Query(value = """

@@ -29,7 +29,7 @@ public class Visning {
     private double pris;
 
     public Visning() {}
-
+//konstruktør for å instialisere
     public Visning(int filmNr, int kinosalNr, LocalDate dato, LocalTime starttid, double pris) {
         this.filmNr = filmNr;
         this.kinosalNr = kinosalNr;
@@ -38,7 +38,7 @@ public class Visning {
         this.pris = pris;
     }
 
-    // Getters and setters
+    // gettere og settere for data ut og innhenting
     public int getId() {
         return id;
     }
@@ -75,7 +75,7 @@ public class Visning {
         this.starttid = starttid;
     }
 
-    // Denne metoden kombinerer dato og klokkeslett til et LocalDateTime-objekt
+    // Denne metoden kombinerer dato og klokkeslett til et LocalDateTimeobjekt
     public LocalDateTime getTidspunkt() {
         if (dato != null && starttid != null) {
             return LocalDateTime.of(dato, starttid);
@@ -84,6 +84,8 @@ public class Visning {
     }
 
     // Denne metoden setter både dato og klokkeslett fra et LocalDateTime-objekt
+    //Vi brukte da time ikke som fil, men med direkte operasjoner
+    //Med bruk av disse funksjonene i Java under --> gjelder flere andre koder å
     public void setTidspunkt(LocalDateTime tidspunkt) {
         if (tidspunkt != null) {
             this.dato = tidspunkt.toLocalDate();
