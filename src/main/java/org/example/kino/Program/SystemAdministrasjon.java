@@ -11,6 +11,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/** Implementert først av Sarmad men testet og finpusset av alle
+ * En viktig ting å merke seg med denne klassen er at det er mange ulike login variabler
+ * de referer til ulike scenarioer og ulike situasjoner man bruker de i
+
+*/
 
 @Service
 public class SystemAdministrasjon {
@@ -23,7 +28,7 @@ public class SystemAdministrasjon {
         this.adminRepo = adminRepo;
     }
 
-    // === Brukeradministrasjon ===
+               /** Her er admin rettet mot en brukerkonto*/
 
     public void opprettBruker(String brukernavn, String rolle, String pinkode) {
         if (adminRepo.brukernavnEksisterer(brukernavn)) {
@@ -51,6 +56,7 @@ public class SystemAdministrasjon {
         adminRepo.slettBruker(brukernavn);
         System.out.println("Bruker slettet: " + brukernavn);
     }
+/**Referere til repository for å hente data*/
 
     public void endrePinkode(String brukernavn, String nyKode) {
         if (!adminRepo.brukernavnEksisterer(brukernavn)) {
@@ -67,7 +73,12 @@ public class SystemAdministrasjon {
         }
     }
 
-    // === Systemadministrasjon ===
+    /**
+     * Adminsitrasjonsdel også her
+     * Her brukte vi den ene weblinken med kode sammen med KI generert hjelp til å lage denne
+     * Dette da fordi vi ikke fant noen ellers kilder som kunne støtte det vi kan
+     * Lite erfaring med det hadde vi å
+     */
 
     public void backupDatabase() {
         try {
@@ -113,6 +124,10 @@ public class SystemAdministrasjon {
         }
     }
 
+    /**
+     * Denne voiden skal rydde filer som er gamle --> dvs visninger som var for 24 timer siden
+     * og også billetter som er ubetalt og har vært i 24 timer+
+     */
     public void ryddMidlertidigeData() {
         try {
             int timer = 24;
@@ -130,6 +145,8 @@ public class SystemAdministrasjon {
             e.printStackTrace();
         }
     }
+    /**Navigasjon for systemadmin*/
+
     public void visMeny() {
         Scanner scanner = new Scanner(System.in);
         boolean adminKjører = true;

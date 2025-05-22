@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Dette er controller for plassbillett og visr bare til de ulike
+ * crud operasjonene + rest api
+ * Definerer at du kan slette, putte, oppdatere via api link som man ser requestmapping
+ */
+
 @RestController
 @RequestMapping("/api/plassbilletter")
 public class PlassBillettController {

@@ -3,6 +3,10 @@ package org.example.kino.Model;
 import jakarta.persistence.*;
 import java.io.Serializable;
 
+/**
+ * Model plassbillett --> implementert, testet og godkjent av Sarmad
+ *
+ */
 @Entity
 @Table(name = "tblplassbillett")
 @IdClass(Plassbillett.SammensattPlassBillettId.class)
@@ -68,6 +72,10 @@ public class Plassbillett {
         this.kinosalNr = kinosalNr;
     }
 
+    /**
+     * Her etter godkjenning av kilder så - serializable for sammensatt nøkkel
+     */
+
     // ID Class
     public static class SammensattPlassBillettId implements Serializable {
         private String billettkode;
@@ -84,7 +92,7 @@ public class Plassbillett {
             this.kinosalNr = kinosalNr;
         }
 
-        // equals and hashCode (viktig for sammensatte nøkler)
+        /**hashcode for sammensatt nøkler*/
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
