@@ -25,6 +25,14 @@ public class PlassBillettService {
     public Plassbillett lagrePlassBillett(Plassbillett plassBillett) {
         return plassBillettRepository.save(plassBillett);
     }
+    public List<Plassbillett> finnPlassbilletterForBillettkode(String billettkode) {
+        return plassBillettRepository.findByBillettkode(billettkode);
+    }
+
+    public void slettPlassBilletterForBillettkode(String billettkode) {
+        List<Plassbillett> plassbilletter = finnPlassbilletterForBillettkode(billettkode);
+        plassBillettRepository.deleteAll(plassbilletter);
+    }
 
     public void slettPlassBillett(Plassbillett.SammensattPlassBillettId id) {
         plassBillettRepository.deleteById(id);
