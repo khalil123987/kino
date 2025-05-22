@@ -1,3 +1,5 @@
+// Testet og implementert av Sahil
+// For kommentarer se model-film siden strukturen er det samme
 package org.example.kino.Model;
 
 import jakarta.persistence.*;

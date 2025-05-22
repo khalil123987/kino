@@ -1,3 +1,5 @@
+// Implementert og testet av Sahil
+// For flere kommentarer på film samme struktur
 package org.example.kino.Controller;
 
 import org.example.kino.Model.Plass;
@@ -18,13 +20,11 @@ public class PlassController {
         this.plassService = plassService;
     }
 
-    // Hent alle plasser i hele systemet
     @GetMapping
     public List<Plass> hentAllePlasser() {
         return plassService.hentAllePlasser();
     }
 
-    // Hent alle plasser i en bestemt kinosal
     @GetMapping("/kinosal/{kinosalnr}")
     public List<Plass> hentPlasserIKinosal(@PathVariable int kinosalnr) {
         return plassService.hentPlasserIKinosal(kinosalnr);

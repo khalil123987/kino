@@ -1,3 +1,19 @@
+// Implementert av Sahil og godkjent av hele gruppa
+
+// Dette er kinobetjentprogrammet koden skal kunne gjøre følgene:
+
+// Logge inn med brukernavn og pinkode (Fikk ikke tid til å implementere dette se mer på dokumentasjon )
+
+// Kinobetjent skal kunne gjøre et direkte salg av altså han skal kunne selge billet og
+// alt skal bli lagret i databasen med et randomisert billettkode
+
+// Kinobetjent skal kunne selge billett til en eksisterende bestilling der kunden har billettkode
+// Når betjenten oppgir billettkoden skal den bli solgt
+
+// Kinobetjent skal kunne slette alle ubetalte bestillinger 30min før starttid og det
+// skal videre loggføres i sletting.dat fil
+
+
 // Package definerer hvilken pakke klassen tilhører
 package org.example.kino.Program;
 
@@ -17,6 +33,7 @@ import java.util.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+// Her blir komponentene som brukes av Spring
 @Component
 public class KinobetjentProgram {
 
@@ -38,6 +55,7 @@ public class KinobetjentProgram {
     @Autowired
     private PlassService plassService;
 
+    // Dette er menysystemet for kinobetjent der han kan velge hvilke operasjon trenger å gjøre
     private final Scanner scanner = new Scanner(System.in);
     public void visKinobetjentMeny() {
         boolean fortsett = true;
@@ -50,6 +68,7 @@ public class KinobetjentProgram {
             System.out.print("Velg et alternativ: ");
             String valg = scanner.nextLine();
 
+            // Valget som styrer
             switch (valg) {
                 case "1" -> direkteSalg();
                 case "2" -> registrerBillettkode();
@@ -62,18 +81,24 @@ public class KinobetjentProgram {
             }
         }
     }
+    // Her blir alle visninger som ikke er betalt slettet hvis det er innen 30 min
+    // Brukte ganske lang tid på dette så jeg måtte bruke KI
     public void slettUbetalteVisninger() {
         LocalDateTime nå = LocalDateTime.now();
-        LocalDateTime grense = nå.plusMinutes(30);
+        LocalDateTime grense = nå.plusMinutes(30);// Grense for hvilke visninger som skal sjekkes
         List<Visning> visninger = visningService.finnAlleVisninger();
 
+        // Her åpner programmet en loggfil der slettede visninger blir loggført inni i en fil som heter slettinger.dat ved hjelp av KI
+        // Siden det er append slipper bruker å lage en seperat slettinger fil siden den lager det automatisk
         try (PrintWriter logg = new PrintWriter(new FileWriter("slettinger.dat", true))) {
             int totaltSlettet = 0;
             for (Visning visning : visninger) {
                 LocalDateTime visningsTidspunkt = visning.getTidspunkt();
+                // Kun visninger som starter innen 30 min slik oppgaven spurte om
                 if (!visningsTidspunkt.isAfter(grense)) {
                     List<Billett> ubetalteBilletter = billettService.finnAlleUbetalteBilletterForVisning(visning.getId());
                     for (Billett billett : ubetalteBilletter) {
+                        // Billetten og plassbilletten blir sletta
                         plassBillettService.slettPlassBilletterForBillettkode(billett.getBillettkode());
                         billettService.slettBillett(billett.getBillettkode());
                         String tid = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
@@ -87,6 +112,8 @@ public class KinobetjentProgram {
             System.out.println("Feil ved skriving til loggfil: " + e.getMessage());
         }
     }
+
+    // Her er delen av kinobetjent sitt program der han registrer salg ved å oppgi billettkode
     private void registrerBillettkode() {
         System.out.print("Skriv inn billettkode: ");
         String kode = scanner.nextLine().trim().toUpperCase();
@@ -103,15 +130,20 @@ public class KinobetjentProgram {
             return;
         }
 
+        // Her blir billetten lagret som solgt i databasen etter at billettkoden er oppgitt
         billett.setErbetalt(true);
         billettService.lagreBillett(billett);
         System.out.println("Billett med kode " + kode + " er nå registrert som betalt.");
     }
+
+    // Her generer det tidspunkt for visningen og det er koblet sammen med service for å forsikre god dataflyt
     private LocalDateTime hentVisningsTidspunkt(Visning visning) {
         int visningsId = visning.getId();
         LocalDateTime nå = LocalDateTime.now();
         return nå.plusDays(1).withHour(10 + (visningsId % 12)).withMinute((visningsId * 5) % 60);
     }
+
+    // Her blir direkte salg av billetter gjennomført
     private void direkteSalg() {
         try {
             LocalDateTime nå = LocalDateTime.now();
@@ -121,6 +153,7 @@ public class KinobetjentProgram {
             List<Visning> alleVisninger = visningService.finnAlleVisninger();
             Map<Integer, List<Visning>> visningerPerFilm = new HashMap<>();
 
+            // Her blir visninger gruppert per film hvis de er etter 30min grensa
             for (Visning visning : alleVisninger) {
                 LocalDateTime visningsTidspunkt = hentVisningsTidspunkt(visning);
                 if (visningsTidspunkt.isAfter(grense)) {
@@ -133,6 +166,7 @@ public class KinobetjentProgram {
                 return;
             }
 
+            // Henter filmer med tilgjengelige visninger
             List<Film> filmerMedVisninger = new ArrayList<>();
             int teller = 1;
             System.out.println("\n--- TILGJENGELIGE FILMER ---");
@@ -146,6 +180,7 @@ public class KinobetjentProgram {
                 }
             }
 
+            // Dette gir brukeren filmvalg ved direkte salg av billett
             System.out.print("\nVelg filmnummer (0 for å avbryte): ");
             int valgtFilmNr = Integer.parseInt(scanner.nextLine());
             if (valgtFilmNr == 0) return;
@@ -157,6 +192,7 @@ public class KinobetjentProgram {
             Film valgtFilm = filmerMedVisninger.get(valgtFilmNr - 1);
             List<Visning> filmensVisninger = visningerPerFilm.get(valgtFilm.getFilmnr());
             teller = 1;
+            // Her vises tilgjengelige visninger for valgt film med hjelp av KI
             System.out.println("\n--- VISNINGER FOR " + valgtFilm.getFilmnavn() + " ---");
             for (Visning visning : filmensVisninger) {
                 Optional<Kinosal> kinosalOpt = kinosalService.finnKinosalMedId(visning.getKinosalNr());
@@ -170,6 +206,7 @@ public class KinobetjentProgram {
                 teller++;
             }
 
+            // visningsvalg
             System.out.print("\nVelg visningsnummer (0 for å avbryte): ");
             int valgtVisningNr = Integer.parseInt(scanner.nextLine());
             if (valgtVisningNr == 0) return;
@@ -179,12 +216,14 @@ public class KinobetjentProgram {
             }
 
             Visning valgtVisning = filmensVisninger.get(valgtVisningNr - 1);
+            // Brukeren får velge plass
             List<Plass> valgtePlasser = velgLedigePlasser(valgtVisning);
             if (valgtePlasser.isEmpty()) {
                 System.out.println("Ingen plasser valgt. Avbryter salg.");
                 return;
             }
 
+            // Her oppretter og lagrer programmet billetten
             String billettkode = genererBillettkode();
             Billett billett = new Billett();
             billett.setBillettkode(billettkode);
@@ -192,6 +231,7 @@ public class KinobetjentProgram {
             billett.setErbetalt(true);
             billettService.lagreBillett(billett);
 
+            // Her blir valgte plasser lagret
             for (Plass plass : valgtePlasser) {
                 Plassbillett pb = new Plassbillett(
                         billettkode,
@@ -201,6 +241,7 @@ public class KinobetjentProgram {
                 plassBillettService.lagrePlassBillett(pb);
             }
 
+            // Dette er kjøpskvitering over visning sammen med tid set osv
             double totalPris = valgtePlasser.size() * valgtVisning.getPris();
             System.out.println("\n--- KJØPSKVITTERING ---");
             System.out.println("Film: " + valgtFilm.getFilmnavn());
@@ -220,12 +261,14 @@ public class KinobetjentProgram {
         System.out.println("\nTrykk Enter for å gå tilbake...");
         scanner.nextLine();
     }
+    // Metode for å velge ledige plasser for en visning her fikk jeg hjelp av KI
     private List<Plass> velgLedigePlasser(Visning visning) {
         List<Plass> valgtePlasser = new ArrayList<>();
         List<Plass> allePlasserISal = plassService.hentPlasserIKinosal(visning.getKinosalNr());
         List<Plassbillett> allePlassbilletter = plassBillettService.finnAllePlassBilletter();
 
         Set<String> opptattePlasser = new HashSet<>();
+        // Her blir optatte plasser filtrert ut slik at man ikke velger et sete som allerede er tatt
         for (Plassbillett pb : allePlassbilletter) {
             Optional<Billett> billettOpt = billettService.hentBillett(pb.getBillettkode());
             if (billettOpt.isPresent() && billettOpt.get().getVisningsnr() == visning.getId()) {
@@ -234,6 +277,7 @@ public class KinobetjentProgram {
         }
 
         System.out.println("\nLedige plasser (Rad-Sete):");
+        // Viser ledige plasser på en strukturert måte
         for (Plass plass : allePlasserISal) {
             String key = plass.getRadNr() + "-" + plass.getSeteNr();
             if (!opptattePlasser.contains(key)) {
@@ -270,7 +314,9 @@ public class KinobetjentProgram {
 
         return valgtePlasser;
     }
+    // Her generer programmet en tilfeldig billettkode med UUID som ble anbefalt fra selve oppgaven
     private String genererBillettkode() {
         return UUID.randomUUID().toString().substring(0, 8).toUpperCase();
     }
 }
+

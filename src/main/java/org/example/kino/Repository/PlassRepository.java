@@ -1,3 +1,4 @@
+// Testet og implementert av Sahil
 package org.example.kino.Repository;
 
 import org.example.kino.Model.Plass;
