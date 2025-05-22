@@ -39,6 +39,8 @@ public class Planlegger {
 
     private final Scanner scanner = new Scanner(System.in);
 
+    //Dashboard / valgmeny for planleggeren for å utføre sine oppgaver
+
     public void meny() {
         while (true) {
             System.out.println("\n--- PLANLEGGER MENY ---");
@@ -88,7 +90,8 @@ public class Planlegger {
             }
         }
     }
-
+        //funksjon for å registrere film
+        //registreres ved å bare skrive inn navn
 
     private void registrerFilmMeny() {
         System.out.print("Skriv inn filmnavn: ");
@@ -102,7 +105,7 @@ public class Planlegger {
         return bruker.isPresent() &&
                 Boolean.TRUE.equals(bruker.get().getErPlanlegger());
     }
-
+    // opprette visning hvor du må fylle inn informasjons kravene du ser under:
     private void opprettVisningMeny() {
         System.out.print("Skriv inn filmnummer: ");
         int filmNr = Integer.parseInt(scanner.nextLine());
@@ -118,7 +121,7 @@ public class Planlegger {
         Visning visning = opprettVisning(filmNr, kinosalNr, dato, starttid, pris);
         System.out.println("Visning opprettet med ID: " + visning.getId());
     }
-
+    //oppdatere visning hvor du endrer visningen
     private void oppdaterVisningMeny() {
         System.out.print("Skriv inn visningsnummer som skal oppdateres: ");
         int visningsnr = Integer.parseInt(scanner.nextLine());
@@ -134,6 +137,10 @@ public class Planlegger {
         System.out.println("Visning oppdatert. Nytt tidspunkt: " + oppdatertVisning.getTidspunkt()
                 + ", ny pris: " + oppdatertVisning.getPris());
     }
+
+    /**
+     *Utføring av funksjonene ved bruk av repository for å gjøre planleggeren sine oppgaver.
+     */
 
     public Film registrerFilm(String filmnavn) {
         Film film = new Film();
@@ -209,7 +216,7 @@ public class Planlegger {
             System.out.println(" - Total inntekt: " + totalInntekt + " kr\n");
         }
     }
-
+    // dette er hente solgte og slettede billetter og bestillinger for å støtte opp statistikk opgpaven for planlegger
     public long hentAntallSolgteBilletter() {
         return billettRepository.countByErbetalt(true);
     }

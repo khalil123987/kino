@@ -1,3 +1,10 @@
+// Testet av Zaurbek og funker
+
+/**
+ * Sørger for at databasen og kontroller funker sammen og
+ * arbeider med alt som har med billetter å gjøre. f.eks. henting via billettkode osv
+ */
+
 package org.example.kino.Service;
 
 import org.example.kino.Model.Billett;
