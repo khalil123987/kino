@@ -1,3 +1,5 @@
+// godkjent av Khalil
+
 package org.example.kino.Repository;
 
 import org.example.kino.Model.Login;

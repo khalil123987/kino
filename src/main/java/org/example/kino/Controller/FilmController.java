@@ -1,3 +1,5 @@
+// godkjent av alle
+
 package org.example.kino.Controller;
 
 import org.example.kino.Model.Film;

@@ -1,3 +1,4 @@
+//godkjent av Khalil
 package org.example.kino.Controller;
 
 import org.example.kino.Model.Kinosal;

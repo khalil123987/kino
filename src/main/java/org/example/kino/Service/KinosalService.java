@@ -1,3 +1,5 @@
+//Gdokjent og testet av Khalil
+
 package org.example.kino.Service;
 
 import org.example.kino.Model.Kinosal;
