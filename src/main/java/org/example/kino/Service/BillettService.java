@@ -41,4 +41,9 @@ public class BillettService {
         billettRepository.deleteById(billettkode);
         return true;
     }
+    public List<Billett> finnAlleUbetalteBilletterForVisning(int visningsnr) {
+        return billettRepository.findByVisningsnrAndErbetaltFalse(visningsnr);
+    }
+
+
 }
